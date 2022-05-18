@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
       <div>
-        <head>
+        <div>
           <title>Conduit</title>
           <link
             href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
@@ -17,51 +17,51 @@ function Header() {
             type="text/css"
           />
           <link rel="stylesheet" href="//demo.productionready.io/main.css" />
-        </head>
-        <body>
-          <nav class="navbar navbar-light">
-            <div class="container">
-              <a class="navbar-brand" href="index.html">
+        </div>
+        <div>
+          <nav className="navbar navbar-light">
+            <div className="container">
+              <a className="navbar-brand" href="index.html">
                 conduit
               </a>
-              <ul class="nav navbar-nav pull-xs-right">
-                <li class="nav-item">
+              <ul className="nav navbar-nav pull-xs-right">
+                <li className="nav-item">
                   <Link className="nav-link active" to="/">
                     Home
                   </Link>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="">
-                    <i class="ion-compose"></i>&nbsp;New Article
+                <li className="nav-item">
+                  <a className="nav-link" href="">
+                    <i className="ion-compose"></i>&nbsp;New Article
                   </a>
                 </li>
-                <li class="nav-item">
+                <li className="nav-item">
                   <Link to="/login" className="nav-link"> Sign in </Link>
                 </li>
-                <li class="nav-item">
+                <li className="nav-item">
                 <Link to="/register" className="nav-link"> Sign up </Link>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="">
-                    <i class="ion-gear-a"></i>&nbsp;Settings
+                <li className="nav-item">
+                  <a className="nav-link" href="">
+                    <i className="ion-gear-a"></i>&nbsp;Settings
                   </a>
                 </li>
               </ul>
             </div>
           </nav>
           <footer>
-            <div class="container">
-              <a href="/" class="logo-font">
+            <div className="container">
+              <a href="/" className="logo-font">
                 conduit
               </a>
-              <span class="attribution">
+              <span className="attribution">
                 An interactive learning project from{" "}
                 <a href="https://thinkster.io">Thinkster</a>. Code &amp; design
                 licensed under MIT.
               </span>
             </div>
           </footer>
-        </body>
+        </div>
       </div>
   );
 }
