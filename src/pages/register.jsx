@@ -64,9 +64,12 @@ function Register() {
         }
       );
       console.log(response.data);
-      console.log(response.accessToken);
+      console.log(response.data.user.token);
       console.log(JSON.stringify(response));
       setSuccess(true);
+      if (response.data.user.token) {
+        localStorage.setItem("user", JSON.stringify(response.data));
+      };
     } catch(err) {
       if(!err?.response) {
         setErrMsg("No server response");

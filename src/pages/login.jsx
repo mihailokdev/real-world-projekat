@@ -1,19 +1,25 @@
 import React from "react";
-import { useRef, useState, useEffect, useContext } from "react";
-import { Link, Navigate, Redirect } from "react-router-dom";
+import { useRef, useState, useEffect } from "react";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 import axios from "../api/axios";
-import AuthContext from "../context/AuthProvider";
+import { useLogin } from "../context/LoginProvider";
 const LOGIN_URL = "/users/login";
 
 function Login() {
-  const { setAuth } = useContext(AuthContext);
+  const { setIsLoggedIn } = useLogin();
+  const { setAuth } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/"
+
   const userRef = useRef();
   const errRef = useRef();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     userRef.current.focus();
@@ -37,10 +43,21 @@ function Login() {
         withCredentials: false,
       });
       console.log(JSON.stringify(response?.data));
+      if (response.data.user.token) {
+        localStorage.setItem("user", JSON.stringify(response.data));
+        sessionStorage.setItem("JWT", JSON.stringify(response.data.user.token))
+        sessionStorage.setItem("email", JSON.stringify(response.data.user.email));
+        sessionStorage.setItem("username", JSON.stringify(response.data.user.username));
 
+      };
+
+      const token = response.data.user.token;
+
+      setAuth({user, token})
+      setIsLoggedIn(true);
       setEmail("");
       setPassword("");
-      setSuccess(true);
+      navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -56,11 +73,7 @@ function Login() {
   };
 
   return (
-    <div>
       <>
-        {success ? (
-          <Navigate to="/" />
-        ) : (
           <div className="auth-page">
             <div className="container page">
               <div className="row">
@@ -111,10 +124,9 @@ function Login() {
               </div>
             </div>
           </div>
-        )}
       </>
-    </div>
   );
 }
+
 
 export default Login;
