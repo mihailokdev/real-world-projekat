@@ -17,7 +17,7 @@ function Home() {
               <div className="feed-toggle">
                 <ul className="nav nav-pills outline-active">
                   <li className="nav-item">
-                    <a className="nav-link disabled" href="">
+                    <a className="nav-link " href="">
                       Your Feed
                     </a>
                   </li>
